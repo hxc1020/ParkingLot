@@ -12,6 +12,6 @@ public class Test {
                 new ParkingLot(5L, 6L)
         ));
 
-        boy.doParkByOrder(new Long[]{2L,4L,3L,1L,5L} , new Car("川A 5T3P0"));
+        boy.doParkByOrder(new Long[]{2L, 4L, 3L, 1L, 5L}, new Car("川A 5T3P0"));
     }
 }

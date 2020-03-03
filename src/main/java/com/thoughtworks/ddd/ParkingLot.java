@@ -39,7 +39,10 @@ public class ParkingLot {
         if (!this.receipts.contains(receipt)) {
             throw new ParkException("小票无效，无法取车");
         }
-        return cars.get(receipt.getPlateNumber());
+        Car car = cars.get(receipt.getPlateNumber());
+        receipts.remove(receipt);
+        cars.remove(car.getPlateNumber());
+        return car;
     }
 
 }
