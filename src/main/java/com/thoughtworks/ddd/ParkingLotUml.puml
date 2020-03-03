@@ -1,0 +1,34 @@
+@startuml
+class ParkingLot <<Entity>> {
+  int id
+  List<Receipt> receipts
+  Map<String, Car> cars
+  int capacity
+
+  Receipt parkCar(Car car)
+  Car getCar(Receipt receipt)
+}
+class Car <<Value Object>> {
+  String plateNumber
+}
+class Receipt <<Value Object>> {
+  String plateNumber
+  String token
+  String parkingTime
+}
+
+class ParkingBoy {
+ Map<Long, ParkingLot> parkingLots
+ void doParkByOrder(Long[] order, Car car)
+}
+
+ParkingLot *-- Receipt
+ParkingLot ..> Car
+
+Receipt -> Car
+
+ParkingBoy o-- ParkingLot
+ParkingBoy ..> Receipt
+ParkingBoy ..> Car
+ParkingBoy --> ParkingLot
+@enduml
