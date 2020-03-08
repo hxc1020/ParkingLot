@@ -7,6 +7,8 @@ class ParkingLot <<Entity>> {
 
   Receipt parkCar(Car car)
   Car getCar(Receipt receipt)
+  Boolean isFull()
+  Long getFree()
 }
 class Car <<Value Object>> {
   String plateNumber
@@ -19,16 +21,38 @@ class Receipt <<Value Object>> {
 
 class ParkingBoy {
  Map<Long, ParkingLot> parkingLots
- void doParkByOrder(Long[] order, Car car)
+ SearchParkingLotRule rule
+
+ Receipt parkCar(Car car)
+ ParkingLot searchAvailableParkingLot()
+}
+
+class SearchParkingLotRule{
+ ParkingLot search(List<ParkingLot> parkingLots)
+}
+
+class SearchByOrder{
+}
+
+class SearchByMaximumSlots{
+}
+
+class ParkingManager{
+    List<ParkingBoy> parkingBoys
+
+    void dispatchWork(Car car)
 }
 
 ParkingLot *-- Receipt
-ParkingLot ..> Car
 
 Receipt -> Car
 
 ParkingBoy o-- ParkingLot
-ParkingBoy ..> Receipt
-ParkingBoy ..> Car
-ParkingBoy --> ParkingLot
+
+ParkingManager o-- ParkingBoy
+
+ParkingBoy-> SearchParkingLotRule
+
+SearchParkingLotRule <.. SearchByOrder
+SearchParkingLotRule <.. SearchByMaximumSlots
 @enduml

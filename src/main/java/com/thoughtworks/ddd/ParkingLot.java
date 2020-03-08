@@ -23,6 +23,10 @@ public class ParkingLot {
         return id;
     }
 
+    public Long getFree() {
+        return capacity - cars.size();
+    }
+
     public Receipt parkCar(Car car) throws ParkException {
         long next = receipts.size() + 1;
         if (next > capacity) {
@@ -43,6 +47,10 @@ public class ParkingLot {
         receipts.remove(receipt);
         cars.remove(car.getPlateNumber());
         return car;
+    }
+
+    public Boolean isNotFull(){
+        return capacity.intValue() > cars.size();
     }
 
 }
