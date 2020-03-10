@@ -14,7 +14,7 @@ public class ParkingManager {
         return parkingBoys.stream()
                 .filter(ParkingBoy::isAvailable)
                 .findAny()
-                .orElseThrow(()-> new ParkException("没有可用停车小弟"))
+                .orElseThrow(() -> new ParkException("没有可用停车小弟"))
                 .parkCar(car);
     }
 }

@@ -31,7 +31,7 @@ public class ParkingBoy {
         return availableParkingLots.get(0);
     }
 
-    public Boolean isAvailable(){
+    public Boolean isAvailable() {
         return parkingLots.stream().anyMatch(ParkingLot::isNotFull);
     }
 }

@@ -49,7 +49,7 @@ public class ParkingLot {
         return car;
     }
 
-    public Boolean isNotFull(){
+    public Boolean isNotFull() {
         return capacity.intValue() > cars.size();
     }
 
