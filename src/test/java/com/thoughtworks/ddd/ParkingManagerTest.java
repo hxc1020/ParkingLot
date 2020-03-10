@@ -34,6 +34,9 @@ public class ParkingManagerTest {
 
         parkingManager.dispatchWork(new Car("川A 123ABC"));
 
-        Assertions.assertThrows(ParkException.class, () -> parkingManager.dispatchWork(new Car("川A 123ABD")));
+        Assertions.assertThrows(
+                ParkException.class,
+                () -> parkingManager.dispatchWork(new Car("川A 123ABD"))
+        );
     }
 }
