@@ -1,0 +1,83 @@
+@startuml
+
+package {
+    class ParkingLot <<Aggregate Root>> <<Entity>> {
+      ParkingLotId id
+      List<Receipt> receipts
+      Map<String, Car> cars
+      int capacity
+
+      Receipt parkCar(Car car)
+      Car getCar(Receipt receipt)
+      Boolean isFull()
+      Long getFree()
+    }
+
+    class Car <<Value Object>> {
+      String plateNumber
+    }
+
+    class Receipt <<Value Object>> {
+      String plateNumber
+      String token
+      String parkingTime
+    }
+}
+
+package {
+    class ParkingBoy  <<Value Object>> {
+     Map<ParkingLotId, ParkingLot> parkingLots
+     SearchParkingLotRule rule
+
+     ParkingLot findAvailableParkingLot()
+    }
+
+    class ParkingPolicy <<Value Object>>{
+     ParkingLot findParkingLot(List<ParkingLot> parkingLots)
+    }
+
+    class ByOrder{
+    }
+
+    class ByMaximumSlot{
+    }
+
+    class ParkingBoyConfig <<Aggregate Root>> <<Entity>>{
+      ParkingBoyId id
+      List<ParkingLotId> parkingLotIds
+      ParkingPolicyName parkingPolicyName
+    }
+}
+
+package {
+
+    class ParkingManager <<Value Object>>{
+        Map<ParkingBoyId, ParkingBoy> parkingBoys
+
+        ParkingBoy findAvailableParkingBoy()
+    }
+
+    class ParkingManagerConfig <<Aggregate Root>> <<Entity>>{
+        ParkingManagerId id
+        List<ParkingBoyId> parkingBoyIds
+    }
+
+    ParkingManager <. ParkingManagerConfig : create
+}
+
+ParkingLot *-- Receipt
+
+ParkingLot *-- Car
+
+ParkingLot --left-o ParkingBoy
+
+ParkingManager o-- ParkingBoy
+
+ParkingBoy --> ParkingPolicy
+ParkingBoy <. ParkingBoyConfig : create
+
+ParkingPolicy <.. ByOrder
+ParkingPolicy <.. ByMaximumSlot
+
+
+@enduml
