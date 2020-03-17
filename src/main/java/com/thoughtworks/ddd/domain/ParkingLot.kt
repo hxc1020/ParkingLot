@@ -23,13 +23,13 @@ class ParkingLot(
     }
 
     fun getCar(receipt: Receipt): Car {
-        if (receiptAvailable(receipt).not()) {
-            throw ParkException("小票无效，无法取车")
+        if (receiptAvailable(receipt)) {
+            return with(receipt) {
+                receipts.remove(this)
+                cars.remove(plateNumber)!!
+            }
         }
-        return with(receipt) {
-            receipts.remove(this)
-            cars.remove(plateNumber)!!
-        }
+        throw ParkException("小票无效，无法取车")
     }
 
     private fun receiptAvailable(receipt: Receipt): Boolean = receipts.contains(receipt)

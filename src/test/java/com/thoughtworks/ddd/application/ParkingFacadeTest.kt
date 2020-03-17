@@ -22,7 +22,8 @@ internal class ParkingFacadeTest {
     @Test
     fun `test park car by parking boy`() {
         val car = Car(PlateNumber("川A 123ABC"))
-        val boy = context.boyRepo.getById(ParkingBoyId(1))!!.toParkingBoy(context.lotRepo)
+        val boy = context.boyRepo.getById(ParkingBoyId(1))!!
+                .toParkingBoy(context.lotRepo)
 
         val receipt = parkingFacade.parkByParkingBoy(boy, car)
 
